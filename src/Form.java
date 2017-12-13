@@ -1,6 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import DBConnect.*;
 
 public class Form {
     private JPanel panel1;
@@ -36,8 +41,23 @@ public class Form {
     }
 
     private  void loginCheck(String frUsername, String frPW){
-        String inUsername = "COSC";
-        String inPW = "22035";
+        String inPW = null;
+        String inUsername = null;
+        dbConnect dbcon = new dbConnect();
+        Statement stml = null;
+        try{
+            String query = "Select * from userdetails where UserName '"+frUsername+"'";
+            stml = dbcon.Conn2DB();
+            ResultSet RS = stml.executeQuery(query);
+            RS.first();
+            inUsername = frUsername;
+            inPW = RS.getString("password");
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        //String inUsername = "COSC";
+        //String inPW = "22035";
         if (frUsername.equals(inUsername)&&frPW.equals(inPW))
             JOptionPane.showMessageDialog(null, "Username and Password Correct");
         else JOptionPane.showMessageDialog(null, "Incorrect");

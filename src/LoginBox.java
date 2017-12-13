@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import DBConnect.*;
 
-public class Form {
+public class LoginBox {
     private JPanel panel1;
     private JTextField UserField;
     private JPasswordField pwField;
@@ -15,7 +15,7 @@ public class Form {
     private JButton loginButton;
     public static JFrame loginFR = new JFrame("Login Box");
 
-    public Form() {
+    public LoginBox() {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,7 +34,7 @@ public class Form {
     }
 
     public static void main(String[] args){
-        loginFR.setContentPane(new Form().panel1);
+        loginFR.setContentPane(new LoginBox().panel1);
         loginFR.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         loginFR.pack();
         loginFR.setVisible(true);
@@ -46,20 +46,23 @@ public class Form {
         dbConnect dbcon = new dbConnect();
         Statement stml = null;
         try{
-            String query = "Select * from userdetails where UserName '"+frUsername+"'";
+            String query = "Select * from userdetails where UserName = '"+frUsername+"'";
             stml = dbcon.Conn2DB();
             ResultSet RS = stml.executeQuery(query);
             RS.first();
             inUsername = frUsername;
-            inPW = RS.getString("password");
+            inPW = RS.getString("Password");
         }
         catch (SQLException e){
             e.printStackTrace();
         }
         //String inUsername = "COSC";
         //String inPW = "22035";
-        if (frUsername.equals(inUsername)&&frPW.equals(inPW))
+        if (frUsername.equals(inUsername)&&frPW.equals(inPW)) {
             JOptionPane.showMessageDialog(null, "Username and Password Correct");
+            loginFR.setVisible(false);
+            new UserDetails(frUsername);
+        }
         else JOptionPane.showMessageDialog(null, "Incorrect");
     }
 }

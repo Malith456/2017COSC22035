@@ -11,7 +11,7 @@ public class UserDetails extends JFrame{
     private JButton coursesButton;
     private JButton logoutButton;
 
-    public UserDetails(String userName){
+    public UserDetails(String userName) {
         setContentPane(panel1);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

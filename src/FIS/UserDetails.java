@@ -1,3 +1,5 @@
+package FIS;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,17 +13,20 @@ public class UserDetails extends JFrame{
     private JButton coursesButton;
     private JButton logoutButton;
 
-    public UserDetails(String userName) {
+    public UserDetails(student user) {
         setContentPane(panel1);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-        txtName.setText(userName);
+        txtName.setText(user.name);
+        txtEmail.setText(user.email);
+        txtConNo.setText(String.valueOf(user.phoneNumber));
 
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                new StoreDetails();
+                setVisible(false);
             }
         });
     }

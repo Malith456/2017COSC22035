@@ -5,5 +5,6 @@ public abstract class  user {
     String name;
     String email;
     int phoneNumber;
+    String PW;
     public abstract void displayInfo();
 }

@@ -1,3 +1,5 @@
+package FIS;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ public class LoginBox {
     private JPasswordField pwField;
     private JButton exitButton;
     private JButton loginButton;
+    private student user = new student();
     public static JFrame loginFR = new JFrame("Login Box");
 
     public LoginBox() {
@@ -52,6 +55,9 @@ public class LoginBox {
             RS.first();
             inUsername = frUsername;
             inPW = RS.getString("Password");
+            user.PW = inPW;
+            user.email = RS.getString("Email");
+            user.NIC = RS.getString("UserID");
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -61,7 +67,7 @@ public class LoginBox {
         if (frUsername.equals(inUsername)&&frPW.equals(inPW)) {
             JOptionPane.showMessageDialog(null, "Username and Password Correct");
             loginFR.setVisible(false);
-            new UserDetails(frUsername);
+            new UserDetails(user);
         }
         else JOptionPane.showMessageDialog(null, "Incorrect");
     }
